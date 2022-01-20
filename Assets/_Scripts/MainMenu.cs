@@ -12,6 +12,9 @@ public class MainMenu : MonoBehaviour
     public GameObject SongChooser;
     public LoadSongInfos SongInfos;
     public GameObject PanelAreYouSure;
+    public GameObject PanelChooseTutorial;
+    public GameObject PanelPictureTutorial;
+    public GameObject PanelAnimationTutorial;
     public GameObject LevelChooser;
     public GameObject LevelButtonTemplate;
     public GameObject Title;
@@ -43,6 +46,8 @@ public class MainMenu : MonoBehaviour
 
         Title.gameObject.SetActive(false);
         PanelAreYouSure.gameObject.SetActive(false);
+        PanelPictureTutorial.gameObject.SetActive(false);
+        PanelAnimationTutorial.gameObject.SetActive(false);
         LevelChooser.gameObject.SetActive(false);
         SongChooser.gameObject.SetActive(true);
         var song = SongInfos.GetCurrentSong();
@@ -157,6 +162,8 @@ public class MainMenu : MonoBehaviour
             }
 
             SongChooser.gameObject.SetActive(false);
+            PanelPictureTutorial.gameObject.SetActive(false);
+            PanelAnimationTutorial.gameObject.SetActive(false);
             PanelAreYouSure.gameObject.SetActive(false);
             LevelChooser.gameObject.SetActive(true);
 
@@ -189,9 +196,25 @@ public class MainMenu : MonoBehaviour
                     buttonsCreated[2].GetComponent<RectTransform>().localPosition = new Vector3(144, buttonsCreated[2].GetComponent<RectTransform>().localPosition.y);
                     buttonsCreated[3].GetComponent<RectTransform>().localPosition = new Vector3(430, buttonsCreated[3].GetComponent<RectTransform>().localPosition.y);
                     break;
+                case 5:
+                    buttonsCreated[0].GetComponent<RectTransform>().localPosition = new Vector3(-520, buttonsCreated[0].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[1].GetComponent<RectTransform>().localPosition = new Vector3(-264, buttonsCreated[1].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[2].GetComponent<RectTransform>().localPosition = new Vector3(0, buttonsCreated[2].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[3].GetComponent<RectTransform>().localPosition = new Vector3(260, buttonsCreated[3].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[4].GetComponent<RectTransform>().localPosition = new Vector3(520, buttonsCreated[4].GetComponent<RectTransform>().localPosition.y);          
+                    break;
+                case 6:
+                    buttonsCreated[0].GetComponent<RectTransform>().localPosition = new Vector3(-600, buttonsCreated[0].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[1].GetComponent<RectTransform>().localPosition = new Vector3(-360, buttonsCreated[1].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[2].GetComponent<RectTransform>().localPosition = new Vector3(-120, buttonsCreated[2].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[3].GetComponent<RectTransform>().localPosition = new Vector3(120, buttonsCreated[3].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[4].GetComponent<RectTransform>().localPosition = new Vector3(360, buttonsCreated[4].GetComponent<RectTransform>().localPosition.y);
+                    buttonsCreated[5].GetComponent<RectTransform>().localPosition = new Vector3(600, buttonsCreated[5].GetComponent<RectTransform>().localPosition.y);
+                    break;
                 default:
                     break;
             }
+            Debug.Log(buttonsCreated[0].GetComponent<RectTransform>().localPosition.y);
         }
         else
         {
@@ -229,5 +252,54 @@ public class MainMenu : MonoBehaviour
     public void Yes()
     {
         Application.Quit();
+    }
+
+    public void ShowTutorial()
+    {
+        NoSongsFound.gameObject.SetActive(false);
+        Title.gameObject.SetActive(false);
+        SongChooser.gameObject.SetActive(false);
+        LevelChooser.gameObject.SetActive(false);
+        PanelAreYouSure.gameObject.SetActive(false);
+        PanelChooseTutorial.gameObject.SetActive(true);
+       // PanelPictureTutorial.gameObject.SetActive(true);
+    }
+
+    public void ShowPictureTutorial()
+    {
+        NoSongsFound.gameObject.SetActive(false);
+        Title.gameObject.SetActive(false);
+        SongChooser.gameObject.SetActive(false);
+        LevelChooser.gameObject.SetActive(false);
+        PanelAreYouSure.gameObject.SetActive(false);
+        PanelChooseTutorial.gameObject.SetActive(false);
+        PanelPictureTutorial.gameObject.SetActive(true);
+    }
+
+    public void ShowAnimationTutorial()
+    {
+        NoSongsFound.gameObject.SetActive(false);
+        Title.gameObject.SetActive(false);
+        SongChooser.gameObject.SetActive(false);
+        LevelChooser.gameObject.SetActive(false);
+        PanelAreYouSure.gameObject.SetActive(false);
+        PanelChooseTutorial.gameObject.SetActive(false);
+        PanelPictureTutorial.gameObject.SetActive(false);
+        PanelAnimationTutorial.gameObject.SetActive(true);
+
+    }
+
+    public void confirm()
+    {
+        PanelPictureTutorial.gameObject.SetActive(false);
+        PanelAnimationTutorial.gameObject.SetActive(false);
+        Title.gameObject.SetActive(true);
+    }
+
+    private IEnumerator LoadTutorialScene()
+    {
+        yield return SceneHandling.LoadScene("OpenSaber", LoadSceneMode.Additive);
+        yield return SceneHandling.LoadScene("TutorialScene", LoadSceneMode.Additive);
+        yield return SceneHandling.UnloadScene("Menu");
     }
 }

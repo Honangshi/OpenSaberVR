@@ -16,7 +16,12 @@ public class SceneHandling : MonoBehaviour
     GameObject RightShaft;
     GameObject RightModel;
 
+    GameObject LeftAnkleTracker;
+    GameObject RightAnkleTracker;
+
     VRTK_Pointer RightUIPointer;
+
+    GameObject ScoreText;
 
     bool VRTK_Loaded = false;
 
@@ -38,6 +43,8 @@ public class SceneHandling : MonoBehaviour
         RightShaft = RightController.transform.Find("Shaft").gameObject;
         RightModel = RightController.transform.Find("Model").gameObject;
 
+        ScoreText = GameObject.Find("Canvas/Text");
+
         RightUIPointer = RightController.transform.Find("RightController").GetComponent<VRTK_Pointer>();
 
         VRTK_Loaded = true;
@@ -57,12 +64,18 @@ public class SceneHandling : MonoBehaviour
 
         LeftModel.SetActive(true);
         RightModel.SetActive(true);
+
+        ScoreText.SetActive(false);
+
         RightUIPointer.enabled = true;
     }
 
     private void SaberSceneLoaded()
     {
+        Pos.trial += 1;
+
         LeftSaber.SetActive(true);
+
         LeftShaft.SetActive(true);
 
         RightSaber.SetActive(true);
@@ -70,7 +83,12 @@ public class SceneHandling : MonoBehaviour
 
         LeftModel.SetActive(false);
         RightModel.SetActive(false);
+
+        ScoreText.SetActive(true);
+
         RightUIPointer.enabled = false;
+
+        Score.emptyScore();
     }
 
     private void OnDestroy()

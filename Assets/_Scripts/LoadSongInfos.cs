@@ -44,6 +44,7 @@ public class LoadSongInfos : MonoBehaviour
 
                     var song = new Song();
                     song.Path = dir;
+
                     song.Name = infoFile.GetString("_songName");
                     song.AuthorName = infoFile.GetString("_songAuthorName");
                     song.BPM = infoFile.GetNumber("_beatsPerMinute").ToString();

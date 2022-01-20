@@ -43,7 +43,7 @@ public class Saber : MonoBehaviour
     void Update()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1.5f, layer))
         {
             if (!string.IsNullOrWhiteSpace(hit.transform.tag) && hit.transform.CompareTag("CubeNonDirection"))
             {
@@ -65,10 +65,15 @@ public class Saber : MonoBehaviour
         }
         
         previousPos = transform.position;
+
     }
 
     private void SliceObject(Transform hittedObject)
     {
+        Score.x += 1; //刚体碰撞结束后得分加1**
+        Score.txt.text = "Score : " + Score.x;
+        Debug.Log("Score : " + Score.x);
+
         var cutted = slicer.SliceObject(hittedObject.gameObject);
         var go = Instantiate(hittedObject.gameObject);
 
